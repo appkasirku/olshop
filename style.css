@@ -7,7 +7,7 @@ body {
 	font-family: system-ui, "Poppins", sans-serif;
   background: #ebc2b5;
   color: #333;
-  padding: 2vh 4px 0;
+	padding: 2vh 4px 0;
 }
 .notscroll {
 	position: relative;
