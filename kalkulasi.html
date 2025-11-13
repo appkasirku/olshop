@@ -5,358 +5,32 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="theme-color" content="#ebc2b5" />
     <title>Kalkulator Harga Online Shop</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      body {
-        font-family: system-ui, "Poppins", sans-serif;
-        background: #ebc2b5;
-        color: #333;
-        padding: 2vh 4px 0;
-      }
-      .notscroll {
-        position: relative;
-        overflow: hidden;
-      }
-      .header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 6px;
-        background: #fff8f2;
-        width: calc(100% - 2vh);
-        max-width: 1500px;
-        margin: auto;
-      }
-	  .header-start {
-			display: flex;
-	   }
-	  .header-end {
-			display: flex;
-	   }
-      .header-start h1 {
-        text-align: center;
-        color: #f1582a;
-        font-size: 20px;
-        text-transform: uppercase;
-      }
-      .header button {
-        margin: 0 0 0 10px;
-        font-size: 14px;
-        border-radius: 0;
-        width: 30px;
-        height: 30px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .header .fa-calculator {
-        width: 18px;
-        height: 21px;
-        align-items: center;
-        justify-content: center;
-      }
-      .form-container {
-        position: fixed;
-        background: rgba(0, 0, 0, 0.5);
-        display: none;
-      }
-      .form-container.show {
-        z-index: 999;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-		 padding: 10px;
-        display: block;
-      }
-      .form-box {
-        background: #fff;
-        padding: 12px;
-        border-radius: 6px;
-		 box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25);
-        max-width: 480px;
-		 width: calc(100% - 5px);
-		 margin: 0 auto;
-      }
-      label {
-        display: block;
-        margin-top: 10px;
-        font-size: 14px;
-      }
-      input {
-        width: 100%;
-        padding: 8px;
-        border: 1px solid #ddd;
-        border-radius: 6px;
-        margin: 6px 0;
-        border-width: 1px;
-      }
-      input:focus {
-        border-color: rgba(241, 88, 42, 0.75);
-        outline: 3px solid rgba(241, 88, 42, 0.25);
-      }
-      button {
-        background: #f1582a;
-        color: #fff;
-        border: none;
-        padding: 10px 14px;
-        border-radius: 6px;
-        cursor: pointer;
-        margin-top: 10px;
-      }
-      button:hover {
-        background: #e04e20;
-      }
-      button.close {
-        background: #555;
-        color: #fff;
-      }
-      button:last-of-type {
-        margin-left: 10px;
-      }
-	  .info {
-		 font-size: 12px;
-		 color: orangered;
-		 min-height: 15px;
-	  }
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        background: #fff;
-        border: 0;
-      }
-      th,
-      td {
-        padding: 8px;
-        text-align: center;
-        font-size: 16px;
-      }
-      th {
-        background: #fef0e8;
-      }
-      th:nth-last-child(3) {
-        position: sticky;
-        right: 0;
-      }
-      th:first-of-type {
-        position: sticky;
-        left: 0;
-      }
-      td:first-of-type {
-        position: sticky;
-        left: 0;
-        background: #fff;
-        font-weight: bold;
-      }
-      tr:nth-child(even) td:first-of-type {
-        background: #f5f5f5;
-      }
-      tr:hover td:first-of-type {
-        background: #ddd;
-      }
-      td:nth-child(2) {
-        text-align: left;
-      }
-      tr:nth-child(even) td:nth-last-child(4) {
-        background: #f5f5f5;
-      }
-      tr:hover td:nth-last-child(4) {
-        background: #ddd;
-      }
-      thead {
-        position: sticky;
-        top: 0;
-        z-index: 998;
-      }
-      tr {
-        background: #fff;
-        border-bottom: 1px solid #f5f5f5;
-      }
-      tr:nth-child(even) {
-        background: #f5f5f5;
-      }
-      tr:hover {
-        background: #ddd;
-      }
-      td:nth-last-child(4) {
-        color: #0a76e1;
-        font-weight: bold;
-        font-size: 14px;
-        position: sticky;
-        right: 0;
-        background: #fff;
-      }
-      td:nth-last-child(6) {
-        color: orangered;
-        font-weight: bold;
-        font-size: 13px;
-      }
-      td:nth-last-child(7) {
-        color: #000;
-        font-weight: bold;
-        font-size: 13px;
-      }
-	  td:nth-last-child(4),
-	  td:nth-last-child(5),
-	  td:nth-last-child(6),
-	  td:nth-last-child(7),
-	  td:nth-last-child(8) {
-		 text-align: right;
-	  }
-      td:nth-last-child(2),
-      td:nth-last-child(1) {
-        padding: 0;
-      }
-      button.delete-btn {
-        background: transparent;
-        color: red;
-        cursor: pointer;
-        padding: 6px 8px;
-        font-size: 12px;
-        margin: 0 !important;
-      }
-      button.edit-btn {
-        background: transparent;
-        color: darkorange;
-        cursor: pointer;
-        padding: 6px 8px;
-        font-size: 12px;
-        margin: 0 !important;
-      }
-      .row {
-        display: flex;
-        gap: 10px;
-      }
-      .col {
-        flex: 1;
-      }
-      .flex-button {
-        display: flex;
-        justify-content: flex-end;
-        gap: 10px;
-        margin-top: 10px;
-      }
-      .flex-button button {
-        margin: 0;
-      }
-      .star {
-        color: red;
-      }
-      .auto-scrolling {
-        width: calc(100% - 2vh);
-        max-width: 1500px;
-        min-height: 84vh;
-        max-height: 84vh;
-        margin: auto;
-        position: relative;
-        overflow: auto;
-        background: #fff;
-      }
-      .auto-scrolling::-webkit-scrollbar {
-        display: none;
-      }
-      .auto-scrolling .fa-bars-staggered {
-        width: 18px;
-        height: 14px;
-        align-items: center;
-        justify-content: center;
-      }
-      .created {
-        padding: 4px 10px;
-        margin-top: 10px;
-      }
-      .created .by {
-        color: rgb(96, 96, 96);
-        font-size: 12px;
-        text-align: center;
-      }
-      .created .by a {
-        color: gray;
-        text-decoration: none;
-      }
-
-	  .search-box {
-		 position: absolute;
-		 background: #fff;
-		 z-index: 999;
-		 width: calc(100% - 8px);
-		 left: 50%;
-		 transform: translateX(-50%);
-		 padding: 0 6px;
-		 display: none;
-	  }
-	  .search-box.show {
-		 display: block;
-	  }
-	  .search-box input[type="search"] {
-		 border-color: rgba(241, 88, 42, 0.75);
-	  }
-	  .search-box button {
-		 background: #fff;
-		 position: absolute;
-		 right: 8px;
-		 top: 8px;
-		 border: none;
-		 outline: none;
-		 color: #999;
-		 border-radius: 0 6px 6px 0;
-	  }
-	  .search-box button.active {
-		 color: orangered;
-	  }
-
-      @media screen and (max-width: 768px) {
-        body {
-          padding-top: 4px;
-        }
-        .header {
-          width: 100%;
-        }
-        .auto-scrolling {
-          width: 100%;
-          min-height: 80vh;
-          max-height: 80vh;
-        }
-        table td {
-          font-size: 12px;
-        }
-      }
-    </style>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   </head>
   <body>
     <div class="header">
-		<div class="header-start">
-      		<h1><i class="fa-solid fa-calculator"></i> Harga Online</h1>
-		</div>
-		<div class="header-end">
-			<button id="openSearch" title="Cari produk">
-				<i class="fa-solid fa-search"></i>
-			</button>
-	  		<button id="openGenerate" title="Generate Deskripsi">
-        		<i class="fa-solid fa-paper-plane"></i>
-      		</button>
-      		<button id="openModal" title="Tambah Data">
-        		<i class="fa-solid fa-plus"></i>
-      		</button>
-		</div>
-
-		<div id="searchBox" class="search-box">
-			<input id="inputSearch" type="search" placeholder="Cari produk">
-			<button id="closeSearch">
-				<i class="fa-solid fa-close"></i>
-			</button>
-		</div>
-
+      <div class="header-start">
+        <h1><i class="fa-solid fa-calculator"></i> Harga Online</h1>
+      </div>
+  		<div class="header-end">
+  			<button id="openSearch" title="Cari produk">
+  				<i class="fa-solid fa-search"></i>
+  			</button>
+  	  	<button id="openGenerate" title="Generate Deskripsi">
+          <i class="fa-solid fa-paper-plane"></i>
+        </button>
+        <button id="openModal" title="Tambah Data">
+          <i class="fa-solid fa-plus"></i>
+        </button>
+  		</div>
+  		<div id="searchBox" class="search-box">
+  			<input id="inputSearch" type="search" placeholder="Cari produk">
+  			<button id="closeSearch">
+  				<i class="fa-solid fa-close"></i>
+  			</button>
+  		</div>
     </div>
-
     <div class="auto-scrolling">
       <table id="tabelData" aria-label="Tabel hasil perhitungan">
         <thead>
@@ -383,1039 +57,245 @@
         <tbody></tbody>
       </table>
     </div>
-
     <div class="form-container">
       <form class="form-box">
         <h3>Tambah Produk Baru</h3>
         <label>Nama/Merek Produk <span class="star">*</span></label>
         <input id="produk" placeholder="contoh: Beras Rojolele 20kg" />
-		 <p class="info info-produk"></p>
-
+        <p class="info info-produk"></p>
         <div class="row">
           <div class="col">
             <label>Modal Satuan (Rp) <span class="star">*</span></label>
-            <input
-              id="modal"
-              inputmode="numeric"
-              placeholder="contoh: 12.500"
-              class="rupiah"
-            />
-			 <p class="info info-modal"></p>
+            <input id="modal" inputmode="numeric" placeholder="contoh: 12.500" class="rupiah" />
+            <p class="info info-modal"></p>
           </div>
           <div class="col">
             <label>Berat/Ukuran <span class="star">*</span></label>
-            <input
-              id="berat"
-              inputmode="numeric"
-              placeholder="contoh: 1"
-              class="desimal"
-            />
-			 <p class="info info-berat"></p>
+            <input id="berat" inputmode="numeric"
+              placeholder="contoh: 1" class="desimal" />
+              <p class="info info-berat"></p>
           </div>
         </div>
-
         <div class="row">
           <div class="col">
             <label>Biaya Kemasan (Rp)</label>
-            <input
-              id="kemasan"
-              inputmode="numeric"
-              placeholder="contoh: 3.000"
-              class="rupiah"
-            />
+            <input id="kemasan" inputmode="numeric" placeholder="contoh: 3.000" class="rupiah" />
           </div>
           <div class="col">
             <label>Target Laba (%) <span class="star">*</span></label>
-            <input
-              id="laba"
-              inputmode="numeric"
-              placeholder="contoh: 10"
-              class="desimal"
-            />
-			 <p class="info info-laba"></p>
+            <input id="laba" inputmode="numeric" placeholder="contoh: 10" class="desimal" />
+            <p class="info info-laba"></p>
           </div>
         </div>
-
         <div class="row">
           <div class="col">
             <label>Diskon Produk (%)</label>
-            <input
-              id="diskon"
-              inputmode="numeric"
-              placeholder="contoh: 5"
-              class="desimal"
-            />
+            <input id="diskon" inputmode="numeric" placeholder="contoh: 5" class="desimal" />
           </div>
           <div class="col">
             <label>Biaya Proses (Rp) <span class="star">*</span></label>
-            <input
-              id="proses"
-              inputmode="numeric"
-              placeholder="contoh: 1.250"
-              class="rupiah"
-            />
-			 <p class="info info-proses"></p>
+            <input id="proses" inputmode="numeric" placeholder="contoh: 1.250" class="rupiah" />
+            <p class="info info-proses"></p>
           </div>
         </div>
-
         <div class="row">
           <div class="col">
             <label>Potongan Ongkir (Rp)</label>
-            <input
-              id="ongkir"
-              inputmode="numeric"
-              placeholder="contoh: 2.500"
-              class="rupiah"
-            />
+            <input id="ongkir" inputmode="numeric" placeholder="contoh: 2.500" class="rupiah" />
           </div>
           <div class="col">
             <label>Fee Aplikasi (%) <span class="star">*</span></label>
-            <input
-              id="fee"
-              inputmode="numeric"
-              placeholder="contoh: 5.75"
-              class="desimal"
-            />
-			 <p class="info info-fee"></p>
+            <input id="fee" inputmode="numeric" placeholder="contoh: 5.75" class="desimal" />
+            <p class="info info-fee"></p>
           </div>
         </div>
-
         <div class="flex-button">
           <button id="closeModal" class="close" type="reset" title="Tutup">Tutup</button>
           <button id="btnSimpan" type="submit" title="Simpan">Simpan</button>
         </div>
       </form>
     </div>
-
-<style>
-	.generate {
-		position: fixed;
-		background: rgba(0, 0, 0, 0.5);
-		display: none;
-	}
-	.generate.show {
-        z-index: 999;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-		 padding: 10px;
-        display: block;
-      }
-	.generate-box {
-		background: #fff;
-		padding: 0;
-		border-radius: 4px;
-		width: 100%;
-		max-width: 480px;
-		margin: 0 auto;
-		max-height: calc(100vh - 75px);
-		overflow: hidden;
-	}
-	.generate-box h2 {
-		margin: 10px;
-		font-size: 18px;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-	}
-	.generate-box h2 button {
-		background: transparent;
-		font-weight: normal!important;
-		color: #999;
-		font-size: 24px;
-		padding: 2px 6px;
-		margin: 0;
-	}
-	.generate-box form {
-		padding: 0 10px 10px;
-	}
-	.generate-box form .box {
-		max-height: 48vh;
-		overflow-y: auto;
-		position: relative;
-		width: 100%;
-		padding: 0 5px;
-		background: #f5f5f5;
-		border: solid 10px #f5f5f5;
-	}
-	.generate form .box::-webkit-scrollbar {
-		display: none;
-	}
-	.generate-box form button {
-		width: 50%;
-		margin: 10px auto;
-		display: block;
-	}
-	.generate-box .textarea {
-		padding: 4px 10px 20px;
-	}
-	.generate-box h3 {
-		display: flex;
-		align-items: center;	
-		justify-content: space-between;
-		margin-bottom: 4px;
-		font-size: 14px;
-	}
-	.generate-box h3 button {
-		background: #f5f5f5;
-		color: gray;
-		font-size: 20px;
-		padding: 2px 6px;
-		margin-top: 0;
-		font-weight: normal;
-	}
-	.generate-box textarea {
-		width: 100%;
-		height: 18vh;
-		padding: 10px;
-		font-family: sans-serift;
-		outline: none;
-		background: #fafafa;
-	}
-	.generate-box .flex {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		margin-top: 10px;
-	}
-	.generate-box .flex-start {
-		
-	}
-	.generate-box .flex-start label {
-		margin: 0;
-	}
-	.generate-box .flex-end {
-		font-size: 14px;
-	}
-	.generate-box .flex-end select {
-		background: #fff;
-		border: none;
-		outline: none;
-		margin: 0;
-		padding: 0;
-		field-sizing: content;
-		min-width: 80px;
-		max-width: 80px;
-	}
-</style>
-
-<div class="generate">
-	<div class="generate-box">
-		<h2>
-			<span>📝 Generator Deskripsi Produk</span>
-			<button id="closeGenerate" type="reset" title="Tutup"><i class="fa-solid fa-times"></i></button>
-		</h2>
-		<form>
-			<div class="box">
-				<div class="flex">
-					<div class="flex-start">
-						<label>Nama Produk / Merek</label>
+		<div class="generate">
+			<div class="generate-box">
+				<h2>
+					<span>📝 Generator Deskripsi Produk</span>
+					<button id="closeGenerate" type="reset" title="Tutup"><i class="fa-solid fa-times"></i></button>
+				</h2>
+				<form>
+					<div class="box">
+						<div class="flex">
+							<div class="flex-start">
+								<label>Nama Produk / Merek</label>
+							</div>
+							<div class="flex-end">Pilih:
+								<select onchange="pilihNama()" id="selectNama" multiple>
+									<option disabled value="">Pilih Nama Produk / Merek</option>
+									<option value="Beras Merah">Beras Merah</option>
+									<option value="Beras BMW Pamdan Wangi">BMW Panda Wangi</option>
+									<option value="Beras Cap Bunga">Cap Bunga</option>
+									<option value="Beras Cap Kembang">Cap Kembang</option>
+									<option value="Beras Cap Rojolele">Cap Rojolele</option>
+									<option value="Beras Jambu Citra">Jambu Citra</option>
+									<option value="Beras Ketan Hitam">Ketan Hitam</option>
+									<option value="Beras Ketan Putih">Ketan Putih</option>
+									<option value="Beras Ramos Bandung">Ramos Bandung</option>
+									<option value="Beras Rojolele Biasa">Rojolele Biasa</option>
+									<option value="Beras Rojolele Citra">Rojolele Citra</option>
+									<option value="Beras Rojolele Delanggu">Rojolele Delanggu</option>
+									<option value="Beras Rojolele Special">Rojolele Special</option>
+									<option value="Beras Rojolele Super">Rojolele Super</option>
+									<option value="Beras Pera Super">Pera Super</option>
+									<option value="Beras Putri Agri">Putri Agri</option>
+								</select>
+							</div>
+						</div>
+						<input id="namaDes" placeholder="misal: Beras Rojolele Super Pulen">
+						<div class="flex">
+							<div class="flex-start">
+								<label>Kualitas</label>
+							</div>
+							<div class="flex-end">Pilih:
+								<select onchange="pilihKualitas()" id="selectKualitas" multiple>
+									<option disabled value="">Pilih Kualitas</option>
+									<option value="Kualitas Medium">Medium</option>
+									<option value="Kualitas Premium">Premium</option>
+									<option value="Kualitas Super Premium">Super Premium</option>
+								</select>
+							</div>
+						</div>
+						<input id="kualitasDes" placeholder="misal: Kualitas Super">
+						<div class="flex">
+							<div class="flex-start">
+								<label>Varian Berat</label>
+							</div>
+							<div class="flex-end">Pilih:
+								<select onchange="pilihVarian()" id="selectVarian" multiple>
+									<option disabled value="">Pilih Varian</option>
+									<option value="5 Kg">5 Kg</option>
+									<option value="10 Kg">10 Kg</option>
+									<option value="20 Kg">20 Kg</option>
+									<option value="25 Kg">25 Kg</option>
+									<option value="50 Kg">50 Kg</option>
+									<option value="5 Lt">5 Lt</option>
+									<option value="10 Lt">10 Lt</option>
+									<option value="20 Lt">20 Lt</option>
+									<option value="25 Lt">25 Lt</option>
+								</select>
+							</div>
+						</div>
+						<input id="varianDes" placeholder="misal: 5kg / 10kg / 20kg">
+						<div class="flex">
+							<div class="flex-start">
+								<label>Tekstur Nasi</label>
+							</div>
+							<div class="flex-end">Pilih:
+								<select onchange="pilihTekstur()" id="selectTekstur" multiple>
+									<option disabled value="">Pilih satu</option>
+									<option value="Pera">Pera</option>
+									<option value="Pulen">Pulen</option>
+									<option value="Pulen Sedang">Pulen Sedang</option>
+									<option value="Pulen Wangi">Pulen Wangi</option>
+								</select>
+							</div>
+						</div>
+						<input id="teksturDes" placeholder="misal: Pulen sedang">
+						<div class="flex">
+							<div class="flex-start">
+								<label>Aroma</label>
+							</div>
+							<div class="flex-end">Pilih:
+								<select onchange="pilihAroma()" id="selectAroma" multiple>
+									<option disabled value="">Pilih Aroma</option>
+									<option value="Harum">Harum</option>
+									<option value="Harum Alami">Harum Alami</option>
+									<option value="Non-wangi">Non-wangi</option>
+									<option value="Wangi Alami">Wangi Alami</option>
+									<option value="Wangi Asli">Wangi Asli</option>
+									<option value="Wangi Pandan">Wangi Pandan</option>
+								</select>
+							</div>
+						</div>
+						<input id="aromaDes" placeholder="misal: Non-wangi">
+						<div class="flex">
+							<div class="flex-start">
+								<label>Butiran</label>
+							</div>
+							<div class="flex-end">Pilih:
+								<select onchange="pilihButiran()" id="selectButiran" multiple>
+									<option disabled value="">Pilih Butiran</option>
+									<option value="Bulat">Bulat</option>
+									<option value="Panjang">Panjang</option>
+								</select>
+							</div>
+						</div>
+						<input id="butiranDes" placeholder="misal: Panjang">
+						<div class="flex">
+							<div class="flex-start">
+								<label>Kemasan</label>
+							</div>
+							<div class="flex-end">Pilih:
+								<select onchange="pilihKemasan()" id="selectKemasan" multiple>
+									<option disabled value="">Pilih Kemasan</option>
+									<option value="Karung biasa tanpa merek">Karung biasa tanpa merek</option>
+									<option value="Karung biasa bermerek">Karung biasa bermerek</option>
+									<option value="Kantong kresek">Kantong kresek</option>
+									<option value="Karung laminasi bermerek">Karung laminasi bermerek</option>
+									<option value="Karung laminasi polos">Karung laminasi polos</option>
+									<option value="Karung biasa bermerek">Karung transparan bermerek</option>
+									<option value="Plastik khusus bermerek">Plastik khusus bermerek</option>
+									<option value="Plastik polos">Plastik polos</option>
+								</select>
+							</div>
+						</div>
+						<input id="kemasanDes" placeholder="misal: Karung transparan bermerek Rojolele">
+						<div class="flex">
+							<div class="flex-start">
+								<label>Nama Toko</label>
+							</div>
+							<div class="flex-end">Pilih:
+								<select onchange="pilihToko()" id="selectToko" multiple>
+									<option disabled value="">Pilih Toko (pilih 1)</option>
+									<option value="Toko Beras 20 Desember">Toko Beras 20 Desember</option>
+									<option value="Toko Beras TB Kaisar">Toko Beras TB Kaisar</option>
+								</select>
+							</div>
+						</div>
+						<input id="tokoDes" placeholder="misal: Toko Beras 20 Desember">
+						<div class="flex">
+							<div class="flex-start">
+								<label>Keunggulan</label>
+							</div>
+							<div class="flex-end">Pilih:
+								<select onchange="pilihKeunggulan()" id="selectKeunggulan" multiple>
+									<option disabled value="">Pilih Keunggulan</option>
+									<option value="Stok selalu baru">Stok selalu baru</option>
+									<option value="Timbangan akurat jujur">Timbangan akurat jujur</option>
+									<option value="Bisa beli ecer atau grosir">Bisa beli ecer atau grosir</option>
+									<option value="Pengiriman cepat dan aman">Pengiriman cepat dan aman</option>
+									<option value="Harga bersaing, kualitas terjamin">Harga bersaing, kualitas terjamin</option>
+									<option value="Cocok untuk rumah tangga, warung, dan usaha kuliner">Cocok untuk rumah tangga, warung, dan usaha kuliner</option>
+								</select>
+							</div>
+						</div>	
+						<input id="keunggulanDes" placeholder="misal: Timbangan akurat, Stok baru, Bisa ecer">
 					</div>
-					<div class="flex-end">Pilih:
-						<select onchange="pilihNama()" id="selectNama" multiple>
-							<option disabled value="">Pilih Nama Produk / Merek</option>
-							<option value="Beras Merah">Beras Merah</option>
-							<option value="Beras BMW Pamdan Wangi">BMW Panda Wangi</option>
-							<option value="Beras Cap Bunga">Cap Bunga</option>
-							<option value="Beras Cap Kembang">Cap Kembang</option>
-							<option value="Beras Cap Rojolele">Cap Rojolele</option>
-							<option value="Beras Ketan Hitam">Ketan Hitam</option>
-							<option value="Beras Ketan Putih">Ketan Putih</option>
-							<option value="Beras Ramos Bandung">Ramos Bandung</option>
-							<option value="Beras Rojolele Biasa">Rojolele Biasa</option>
-							<option value="Beras Rojolele Citra">Rojolele Citra</option>
-							<option value="Beras Rojolele Delanggu">Rojolele Delanggu</option>
-							<option value="Beras Rojolele Special">Rojolele Special</option>
-							<option value="Beras Rojolele Super">Rojolele Super</option>
-							<option value="Beras Pera Super">Pera Super</option>
-							<option value="Beras Putri Agri">Putri Agri</option>
-						</select>
-					</div>
+					<button onclick="buatDeskripsi(event)" type="submit" title="Buat Deskripsi">Buat Deskripsi</button>
+				</form>
+				<div class="textarea">
+					<h3>
+						<span>📄 Hasil Deskripsi</span>
+						<button onclick="resetText()" title="Hapus hasil"><i class="fa-solid fa-ban"></i></button>
+						<button onclick="copyText()" title="Copy hasil"><i class="fa-solid fa-copy"></i></button>
+					</h3>
+					<textarea id="hasil" placeholder="Hasil generate akan muncul disini dan silakan klik tombol salin!" readonly></textarea>
 				</div>
-				<input id="namaDes" placeholder="misal: Beras Rojolele Super Pulen">
-				<div class="flex">
-					<div class="flex-start">
-						<label>Kualitas</label>
-					</div>
-					<div class="flex-end">Pilih:
-						<select onchange="pilihKualitas()" id="selectKualitas" multiple>
-							<option disabled value="">Pilih Kualitas</option>
-							<option value="Kualitas Medium">Medium</option>
-							<option value="Kualitas Premium">Premium</option>
-							<option value="Kualitas Super Premium">Super Premium</option>
-						</select>
-					</div>
-				</div>
-				<input id="kualitasDes" placeholder="misal: Kualitas Super">
-				<div class="flex">
-					<div class="flex-start">
-						<label>Varian Berat</label>
-					</div>
-					<div class="flex-end">Pilih:
-						<select onchange="pilihVarian()" id="selectVarian" multiple>
-							<option disabled value="">Pilih Varian</option>
-							<option value="5 Kg">5 Kg</option>
-							<option value="10 Kg">10 Kg</option>
-							<option value="20 Kg">20 Kg</option>
-							<option value="25 Kg">25 Kg</option>
-							<option value="50 Kg">50 Kg</option>
-							<option value="5 Lt">5 Lt</option>
-							<option value="10 Lt">10 Lt</option>
-							<option value="20 Lt">20 Lt</option>
-							<option value="25 Lt">25 Lt</option>
-						</select>
-					</div>
-				</div>
-				<input id="varianDes" placeholder="misal: 5kg / 10kg / 20kg">
-				<div class="flex">
-					<div class="flex-start">
-						<label>Tekstur Nasi</label>
-					</div>
-					<div class="flex-end">Pilih:
-						<select onchange="pilihTekstur()" id="selectTekstur" multiple>
-							<option disabled value="">Pilih satu</option>
-							<option value="Pera">Pera</option>
-							<option value="Pulen">Pulen</option>
-							<option value="Pulen Sedang">Pulen Sedang</option>
-							<option value="Pulen Wangi">Pulen Wangi</option>
-						</select>
-					</div>
-				</div>
-				<input id="teksturDes" placeholder="misal: Pulen sedang">
-				<div class="flex">
-					<div class="flex-start">
-						<label>Aroma</label>
-					</div>
-					<div class="flex-end">Pilih:
-						<select onchange="pilihAroma()" id="selectAroma" multiple>
-							<option disabled value="">Pilih Aroma</option>
-							<option value="Harum">Harum</option>
-							<option value="Harum Alami">Harum Alami</option>
-							<option value="Non-wangi">Non-wangi</option>
-							<option value="Wangi Alami">Wangi Alami</option>
-							<option value="Wangi Asli">Wangi Asli</option>
-							<option value="Wangi Pandan">Wangi Pandan</option>
-						</select>
-					</div>
-				</div>
-				<input id="aromaDes" placeholder="misal: Non-wangi">
-				<div class="flex">
-					<div class="flex-start">
-						<label>Butiran</label>
-					</div>
-					<div class="flex-end">Pilih:
-						<select onchange="pilihButiran()" id="selectButiran" multiple>
-							<option disabled value="">Pilih Butiran</option>
-							<option value="Bulat">Bulat</option>
-							<option value="Panjang">Panjang</option>
-						</select>
-					</div>
-				</div>
-				<input id="butiranDes" placeholder="misal: Panjang">
-				<div class="flex">
-					<div class="flex-start">
-						<label>Kemasan</label>
-					</div>
-					<div class="flex-end">Pilih:
-						<select onchange="pilihKemasan()" id="selectKemasan" multiple>
-							<option disabled value="">Pilih Kemasan</option>
-							<option value="Karung biasa tanpa merek">Karung biasa tanpa merek</option>
-							<option value="Karung biasa bermerek">Karung biasa bermerek</option>
-							<option value="Kantong kresek">Kantong kresek</option>
-							<option value="Karung laminasi bermerek">Karung laminasi bermerek</option>
-							<option value="Karung laminasi polos">Karung laminasi polos</option>
-							<option value="Karung biasa bermerek">Karung transparan bermerek</option>
-							<option value="Plastik khusus bermerek">Plastik khusus bermerek</option>
-							<option value="Plastik polos">Plastik polos</option>
-						</select>
-					</div>
-				</div>
-				<input id="kemasanDes" placeholder="misal: Karung transparan bermerek Rojolele">
-				<div class="flex">
-					<div class="flex-start">
-						<label>Nama Toko</label>
-					</div>
-					<div class="flex-end">Pilih:
-						<select onchange="pilihToko()" id="selectToko" multiple>
-							<option disabled value="">Pilih Toko (pilih 1)</option>
-							<option value="Toko Beras 20 Desember">Toko Beras 20 Desember</option>
-							<option value="Toko Beras TB Kaisar">Toko Beras TB Kaisar</option>
-						</select>
-					</div>
-				</div>
-				<input id="tokoDes" placeholder="misal: Toko Beras 20 Desember">
-
-				<div class="flex">
-					<div class="flex-start">
-						<label>Keunggulan</label>
-					</div>
-					<div class="flex-end">Pilih:
-						<select onchange="pilihKeunggulan()" id="selectKeunggulan" multiple>
-							<option disabled value="">Pilih Keunggulan</option>
-							<option value="Stok selalu baru">Stok selalu baru</option>
-							<option value="Timbangan akurat jujur">Timbangan akurat jujur</option>
-							<option value="Bisa beli ecer atau grosir">Bisa beli ecer atau grosir</option>
-							<option value="Pengiriman cepat dan aman">Pengiriman cepat dan aman</option>
-							<option value="Harga bersaing, kualitas terjamin">Harga bersaing, kualitas terjamin</option>
-							<option value="Cocok untuk rumah tangga, warung, dan usaha kuliner">Cocok untuk rumah tangga, warung, dan usaha kuliner</option>
-						</select>
-					</div>
-				</div>	
-
-				<input id="keunggulanDes" placeholder="misal: Timbangan akurat, Stok baru, Bisa ecer">
 			</div>
-			<button onclick="buatDeskripsi(event)" type="submit" title="Buat Deskripsi">Buat Deskripsi</button>
-		</form>
-
-		<div class="textarea">
-			<h3>
-				<span>📄 Hasil Deskripsi</span>
-<button onclick="resetText()" title="Hapus hasil"><i class="fa-solid fa-ban"></i></button>
-				<button onclick="copyText()" title="Copy hasil"><i class="fa-solid fa-copy"></i></button>
-			</h3>
-			<textarea id="hasil" placeholder="Hasil generate akan muncul disini dan silakan klik tombol salin!" readonly></textarea>
 		</div>
-	</div>
-</div>
-
     <div class="created">
       <div class="by">
-        <a
-          href="https://shopee.com/tbkaisar"
-          title="TB Kaisar - Shopee"
-          target="_blank"
-          >&copy;2025 . Design By TB Kaisar</a
-        >
+        <a href="https://shopee.com/beras20desember" title="Beras 20 Desember - Shopee" target="_blank">&copy;2025 . Design By Toko Beras 20 Desember</a>
       </div>
     </div>
-
-    <script>
-      let db;
-      let editIndex = null;
-
-      // --- Inisialisasi IndexedDB ---
-      const request = indexedDB.open("KalkulatorHargaDB", 1);
-
-      request.onupgradeneeded = function (event) {
-        db = event.target.result;
-        if (!db.objectStoreNames.contains("produk")) {
-          db.createObjectStore("produk", {
-            keyPath: "id",
-            autoIncrement: true,
-          });
-        }
-      };
-
-      request.onsuccess = function (event) {
-        db = event.target.result;
-        tampilkanData();
-      };
-
-      request.onerror = function () {
-        alert("Gagal membuka database IndexedDB!");
-      };
-
-      // --- Fungsi CRUD IndexedDB ---
-      function tambahData(event) {
-        event.preventDefault();
-        const produk = document.getElementById("produk").value.trim();
-        const modal = toNumber(document.getElementById("modal").value);
-        const berat = toNumber(document.getElementById("berat").value || 0);
-        const kemasan = toNumber(document.getElementById("kemasan").value || 0);
-        const laba = toNumber(document.getElementById("laba").value);
-        const diskon = toNumber(document.getElementById("diskon").value || 0);
-        const proses = toNumber(document.getElementById("proses").value || 0);
-        const ongkir = toNumber(document.getElementById("ongkir").value || 0);
-        const fee = toNumber(document.getElementById("fee").value);
-
-const infoText = "Wajib untuk diisi!";
-const infoProduk = document.querySelector(".info-produk");
-const infoModal = document.querySelector(".info-modal");
-const infoBerat = document.querySelector(".info-berat");
-const infoLaba = document.querySelector(".info-laba");
-const infoProses = document.querySelector(".info-proses");
-const infoFee = document.querySelector(".info-fee");
-infoProduk.textContent = "";
-infoModal.textContent = "";
-infoBerat.textContent = "";
-infoLaba.textContent = "";
-infoProses.textContent = "";
-infoFee.textContent = "";
-if (!produk) {
-	document.getElementById("produk").focus();
-	infoProduk.textContent = infoText;
-	return;
-}
-if (isNaN(modal) || modal === 0) {
-	document.getElementById("modal").focus();
-	infoModal.textContent = infoText;
-	return;
-}
-if (isNaN(berat) || berat === 0) {
-	document.getElementById("berat").focus();
-	infoBerat.textContent = infoText;
-	return;
-}
-if (isNaN(laba) || laba === 0) {
-	document.getElementById("laba").focus();
-	infoLaba.textContent = infoText;
-	return;
-}
-if (isNaN(proses) || proses === 0) {
-	document.getElementById("proses").focus();
-	infoProses.textContent = infoText;
-	return;
-}
-if (isNaN(fee) || fee === 0) {
-	document.getElementById("fee").focus();
-	infoFee.textContent = infoText;
-	return;
-}
-
-        const tanggalSekarang = new Date().toLocaleDateString("id-ID", {
-          day: "2-digit",
-          month: "2-digit",
-          year: "numeric",
-        });
-
-        const hasil = hitungHarga(
-          modal,
-          berat,
-          kemasan,
-          laba,
-          diskon,
-          proses,
-          ongkir,
-          fee
-        );
-        const item = {
-          produk,
-          modal,
-          berat,
-          kemasan,
-          laba,
-          diskon,
-          proses,
-          ongkir,
-          fee,
-          tanggalSekarang,
-          ...hasil,
-        };
-
-        const tx = db.transaction("produk", "readwrite");
-        const store = tx.objectStore("produk");
-
-        if (editIndex !== null) {
-          item.id = editIndex;
-          store.put(item);
-          editIndex = null;
-          document.getElementById("btnSimpan").textContent = "Simpan";
-        } else {
-          store.add(item);
-        }
-
-        tx.oncomplete = () => {
-          //tampilkanData();
-
-const baris = document.querySelector(`#tabelData tr[data-id='${item.id}']`);
-if (!baris) return;
-const kolom = baris.querySelectorAll("td");
-kolom[1].textContent = item.produk;
-kolom[2].textContent = item.berat;
-kolom[3].textContent = fmt(item.modal);
-kolom[4].textContent = fmt(item.kemasan);
-kolom[5].textContent = fmt(item.proses);
-kolom[6].textContent = fmt(item.ongkir);
-kolom[7].textContent = item.laba;
-kolom[8].textContent = item.diskon;
-kolom[9].textContent = item.fee;
-kolom[10].textContent = fmt(item.modalTotal);
-kolom[11].textContent = fmt(item.hargaJual);
-kolom[12].textContent = fmt(item.hargaAkhir);
-kolom[13].textContent = fmt(item.saldoMasuk);
-kolom[14].textContent = fmt(item.labaBersih);
-kolom[15].textContent = item.tanggalSekarang;
-
-
-          closeModal();
-          document.querySelectorAll("input").forEach((i) => (i.value = ""));
-        };
-      }
-
-      function tampilkanData() {
-        const tbody = document.querySelector("#tabelData tbody");
-        tbody.innerHTML = "";
-
-        const tx = db.transaction("produk", "readonly");
-        const store = tx.objectStore("produk");
-
-        store.getAll().onsuccess = function (event) {
-          const data = event.target.result.sort((a, b) => b.id - a.id);
-
-dataResult(data);
-
-/*
-          data.forEach((d, i) => {
-            tbody.innerHTML += `
-          <tr>
-            <td>${i + 1}</td>
-            <td>${d.produk}</td>
-            <td>${d.berat}</td>
-            <td>${fmt(d.modal)}</td>
-            <td>${fmt(d.kemasan)}</td>
-            <td>${fmt(d.proses)}</td>
-            <td>${fmt(d.ongkir)}</td>
-            <td>${d.laba}</td>
-            <td>${d.diskon}</td>
-            <td>${d.fee}</td>
-            <td>${fmt(d.modalTotal)}</td>
-            <td>${fmt(d.hargaJual)}</td>
-            <td>${fmt(d.hargaAkhir)}</td>
-            <td>${fmt(d.saldoMasuk)}</td>
-            <td>${fmt(d.labaBersih)}</td>
-            <td>${d.tanggalSekarang}</td>
-            <td><button class="edit-btn" title="Edit Data" onclick="editData(${
-              d.id
-            })"><i class="fa-solid fa-pen"></i></button></td>
-            <td><button class="delete-btn" title="Hapus Data" onclick="hapusData(${
-              d.id
-            })"><i class="fa-solid fa-trash"></i></button></td>
-          </tr>
-        `;
-          });
-*/
-
-        };
-      }
-
-      function editData(id) {
-        const tx = db.transaction("produk", "readonly");
-        const store = tx.objectStore("produk");
-
-        store.get(id).onsuccess = function (event) {
-          const d = event.target.result;
-          editIndex = d.id;
-          document.getElementById("produk").value = d.produk;
-          document.getElementById("modal").value = d.modal;
-          document.getElementById("berat").value = d.berat;
-          document.getElementById("kemasan").value =
-            d.kemasan === 0 ? "" : d.kemasan;
-          document.getElementById("laba").value = d.laba;
-          document.getElementById("diskon").value =
-            d.diskon === 0 ? "" : d.diskon;
-          document.getElementById("proses").value = d.proses;
-          document.getElementById("ongkir").value =
-            d.ongkir === 0 ? "" : d.ongkir;
-          document.getElementById("fee").value = d.fee;
-          openModal();
-          document.querySelector(".form-box h3").textContent =
-            "Perbarui Data Produk";
-          document.getElementById("btnSimpan").textContent = "Simpan Perubahan";
-          document.querySelectorAll(".rupiah").forEach((i) => {
-            i.value = formatRupiah(i.value);
-          });
-          document.querySelectorAll(".desimal").forEach((i) => {
-            i.value = i.value.replace(".", ",");
-          });
-        };
-      }
-
-      function hapusData(id) {
-        if (!confirm(`Hapus data ini?`)) return;
-        const tx = db.transaction("produk", "readwrite");
-        const store = tx.objectStore("produk");
-        store.delete(id);
-        tx.oncomplete = tampilkanData;
-      }
-
-      // --- Fungsi bantu perhitungan dan tampilan ---
-      function hitungHarga(
-        modal,
-        berat,
-        kemasan,
-        laba,
-        diskon,
-        proses,
-        ongkir,
-        fee
-      ) {
-        modal = Number(modal) || 0;
-        berat = Number(berat) || 0;
-        kemasan = Number(kemasan) || 0;
-        laba = Number(laba) || 0;
-        diskon = Number(diskon) || 0;
-        proses = Number(proses) || 0;
-        ongkir = Number(ongkir) || 0;
-        fee = Number(fee) || 0;
-
-        const modalTotal = modal * berat + kemasan;
-        const multiplierLaba = 1 + laba / 100;
-        const sisaDiskon = 1 - diskon / 100;
-        const sisaFee = 1 - fee / 100;
-
-        const hargaJual =
-          (modalTotal * multiplierLaba + proses + ongkir) /
-          (sisaDiskon * sisaFee);
-        const hargaAkhir = hargaJual * sisaDiskon;
-        const saldoMasuk = hargaAkhir * sisaFee - proses - ongkir;
-        const labaBersih = saldoMasuk - modalTotal;
-
-        return { modalTotal, hargaJual, hargaAkhir, saldoMasuk, labaBersih };
-      }
-
-      function fmt(n) {
-        if (isNaN(n) || n === null) return "-";
-        return Number(n).toLocaleString("id-ID", { maximumFractionDigits: 0 });
-      }
-
-      // --- Modal form ---
-      // Enter untuk pindah input, Enter di input terakhir untuk submit
-      const formInputs = document.querySelectorAll(".form-box input");
-      formInputs.forEach((input, index) => {
-        input.addEventListener("keydown", function (e) {
-          if (e.key === "Enter") {
-            e.preventDefault(); // cegah default submit form
-            const next = formInputs[index + 1];
-            if (next) {
-              next.focus(); // pindah ke input berikutnya
-            } else {
-              // Kalau ini input terakhir → langsung proses submit
-              document.getElementById("btnSimpan").click();
-            }
-          }
-        });
-      });
-      document.getElementById("btnSimpan").addEventListener("click", tambahData);
-      document.getElementById("openModal").addEventListener("click", openModal);
-      document.getElementById("closeModal").addEventListener("click", closeModal);
-
-      function openModal() {
-        document.querySelector(".form-container").classList.add("show");
-        document.body.classList.add("notscroll");
-      }
-
-      function closeModal() {
-        editIndex = null;
-        document.querySelector(".form-box h3").textContent =
-          "Tambah Produk Baru";
-        document.getElementById("btnSimpan").textContent = "Simpan";
-        document.querySelector(".form-container").classList.remove("show");
-        document.body.classList.remove("notscroll");
-        document.querySelectorAll("input").forEach((i) => (i.value = ""));
-		document.querySelectorAll(".info").forEach((i) => (i.innerHTML = ""));
-      }
-
-      function formatRupiah(angka) {
-        const num = angka.replace(/[^\d]/g, ""); // hapus semua karakter non-digit
-        return num ? num.replace(/\B(?=(\d{3})+(?!\d))/g, ".") : "";
-      }
-
-      document.querySelectorAll(".rupiah").forEach((input) => {
-        input.addEventListener("input", (e) => {
-          const posisiKursor = e.target.selectionStart;
-          const nilaiAwal = e.target.value;
-          e.target.value = formatRupiah(e.target.value);
-          const selisih = e.target.value.length - nilaiAwal.length;
-          e.target.setSelectionRange(
-            posisiKursor + selisih,
-            posisiKursor + selisih
-          );
-        });
-
-        input.addEventListener("blur", (e) => {
-          e.target.value = formatRupiah(e.target.value);
-        });
-      });
-
-      document.querySelectorAll(".desimal").forEach((input) => {
-        input.addEventListener("input", (e) => {
-          e.target.value = e.target.value.replace(".", ",");
-        });
-      });
-
-      function toNumber(str) {
-        if (!str) return 0;
-        // Hilangkan semua spasi
-        str = str.trim();
-        // Kalau mengandung koma desimal → ganti jadi titik
-        if (str.includes(",")) {
-          // Hilangkan titik ribuan dulu
-          str = str.replace(/\./g, "");
-          // Ganti koma jadi titik
-          str = str.replace(",", ".");
-        } else {
-          // Kalau tidak ada koma, berarti angka rupiah biasa
-          str = str.replace(/\./g, "");
-        }
-        return parseFloat(str) || 0;
-      }
-    </script>
-
-<script>
-function openSearch() {
-	document.getElementById("searchBox").classList.add("show");
-	const inputSearch = document.getElementById("inputSearch");
-	const closeSearch = document.getElementById("closeSearch");
-	inputSearch.focus();
-	inputSearch.addEventListener("input", () => {
-		if (inputSearch.value.length > 1) {
-			closeSearch.classList.add("active");
-		} else {
-			closeSearch.classList.remove("active");
-		}
-		cariProdukIndexedDB(inputSearch.value);
-	});
-}
-
-function dataResult(data) {
-	const tbody = document.querySelector("#tabelData tbody");
-        tbody.innerHTML = "";
-	if (data.length > 0) {
-    	//tampilkanData(hasil);
-		data.forEach((d, i) => {
-            tbody.innerHTML += `
-          <tr data-id="${d.id}">
-            <td>${i + 1}</td>
-            <td>${d.produk}</td>
-            <td>${d.berat}</td>
-            <td>${fmt(d.modal)}</td>
-            <td>${fmt(d.kemasan)}</td>
-            <td>${fmt(d.proses)}</td>
-            <td>${fmt(d.ongkir)}</td>
-            <td>${d.laba}</td>
-            <td>${d.diskon}</td>
-            <td>${d.fee}</td>
-            <td>${fmt(d.modalTotal)}</td>
-            <td>${fmt(d.hargaJual)}</td>
-            <td>${fmt(d.hargaAkhir)}</td>
-            <td>${fmt(d.saldoMasuk)}</td>
-            <td>${fmt(d.labaBersih)}</td>
-            <td>${d.tanggalSekarang}</td>
-            <td><button class="edit-btn" title="Edit Data" onclick="editData(${
-              d.id
-            })"><i class="fa-solid fa-pen"></i></button></td>
-            <td><button class="delete-btn" title="Hapus Data" onclick="hapusData(${
-              d.id
-            })"><i class="fa-solid fa-trash"></i></button></td>
-          </tr>
-        `;
-          });
-	} else {
-		tbody.innerHTML = `
-			<tr>
-				<td colspan="18" style="padding:20px 20px 20px 40px;font-weight:normal;text-align:left">Produk tidak ditemukan!</td>
-			</tr>
-		`;
-	}
-}
-
-function cariProdukIndexedDB(keyword) {
-  const transaction = db.transaction("produk", "readonly");
-  const store = transaction.objectStore("produk");
-  const request = store.getAll();
-
-  request.onsuccess = function () {
-    const hasil = request.result.filter(p =>
-      p.produk.toLowerCase().includes(keyword.toLowerCase())
- 	  );
-
-	const data = hasil.sort((a, b) => b.id - a.id);
-
-	//tampilkan hasil ke tabel
-	if (keyword.length > 2) {
-		dataResult(data);
-	} else if (keyword.length === 0) {
-		tampilkanData();
-	}
-
-  };
-}
-
-function closeSearch() {
-	document.getElementById("searchBox").classList.remove("show");
-	document.getElementById("inputSearch").value = "";
-	tampilkanData();
-}
-
-document.getElementById("openSearch").addEventListener("click", openSearch);
-document.getElementById("closeSearch").addEventListener("click", closeSearch);
-
-function openGenerate() {
-        document.querySelector(".generate").classList.add("show");
-        document.body.classList.add("notscroll");
-      }
-
-function closeGenerate() {
-        document.querySelector(".generate").classList.remove("show");
-        document.body.classList.remove("notscroll");
-        resetText();
-      }
-
-function pilihNama() {
-  const inp = document.getElementById("namaDes");
-  const opt = document.getElementById("selectNama");
-  // Ambil semua opsi yang dipilih dan gabungkan dengan tanda koma
-  const selected = Array.from(opt.selectedOptions).map(o => o.value).join(" / ");
-  inp.value = selected;
-}
-
-function pilihKualitas() {
-  const inp = document.getElementById("kualitasDes");
-  const opt = document.getElementById("selectKualitas");
-  // Ambil semua opsi yang dipilih dan gabungkan dengan tanda koma
-  const selected = Array.from(opt.selectedOptions).map(o => o.value).join(", ");
-  inp.value = selected;
-}
-
-function pilihVarian() {
-  const inp = document.getElementById("varianDes");
-  const opt = document.getElementById("selectVarian");
-  // Ambil semua opsi yang dipilih dan gabungkan dengan garis miring
-  const selected = Array.from(opt.selectedOptions).map(o => o.value).join(" / ");
-  inp.value = selected;
-}
-
-function pilihTekstur() {
-  const inp = document.getElementById("teksturDes");
-  const opt = document.getElementById("selectTekstur");
-  // Ambil semua opsi yang dipilih dan gabungkan dengan tanda koma
-  const selected = Array.from(opt.selectedOptions).map(o => o.value).join(", ");
-  inp.value = selected;
-}
-
-function pilihAroma() {
-  const inp = document.getElementById("aromaDes");
-  const opt = document.getElementById("selectAroma");
-  // Ambil semua opsi yang dipilih dan gabungkan dengan tanda koma
-  const selected = Array.from(opt.selectedOptions).map(o => o.value).join(" / ");
-  inp.value = selected;
-}
-
-function pilihButiran() {
-  const inp = document.getElementById("butiranDes");
-  const opt = document.getElementById("selectButiran");
-  // Ambil semua opsi yang dipilih dan gabungkan dengan tanda koma
-  const selected = Array.from(opt.selectedOptions).map(o => o.value).join(" / ");
-  inp.value = selected;
-}
-
-function pilihKemasan() {
-  const inp = document.getElementById("kemasanDes");
-  const opt = document.getElementById("selectKemasan");
-  // Ambil semua opsi yang dipilih dan gabungkan dengan tanda koma
-  const selected = Array.from(opt.selectedOptions).map(o => o.value).join(" / ");
-  inp.value = selected;
-}
-
-function pilihToko() {
-  const inp = document.getElementById("tokoDes");
-  const opt = document.getElementById("selectToko");
-  // Ambil semua opsi yang dipilih dan gabungkan dengan tanda koma
-  const selected = Array.from(opt.selectedOptions).map(o => o.value).join(" / ");
-  inp.value = selected;
-}
-
-function pilihKeunggulan() {
-  const inp = document.getElementById("keunggulanDes");
-  const opt = document.getElementById("selectKeunggulan");
-  // Ambil semua opsi yang dipilih dan gabungkan dengan tanda koma
-  const selected = Array.from(opt.selectedOptions).map(o => o.value.replace(/\,/g, ".")).join(", ");
-  inp.value = selected;
-}
-
-function buatDeskripsi(event) {
-  event.preventDefault();
-  const nama = document.getElementById("namaDes").value.trim();
-  const kualitas = document.getElementById("kualitasDes").value.trim();
-  const varian = document.getElementById("varianDes").value.trim();
-  const tekstur = document.getElementById("teksturDes").value.trim();
-  const aroma = document.getElementById("aromaDes").value.trim();
-  const butiran = document.getElementById("butiranDes").value.trim();
-  const kemasan = document.getElementById("kemasanDes").value.trim();
-  const toko = document.getElementById("tokoDes").value.trim();
-  const keunggulan = document.getElementById("keunggulanDes").value.split(",").map(x => x.trim()).filter(Boolean);
-
-  const hasil = `
-🌾 ${nama} ${varian} - ${kualitas}
-
-Selamat datang di ${toko}, pusat kebutuhan beras terpercaya di daerahmu!
-Kami menyediakan ${nama} dengan kualitas terbaik dan harga jujur.
-
----
-
-🍚 Deskripsi Produk
-• Merek: ${nama}
-• Varian Berat: ${varian}
-• Tekstur Nasi: ${tekstur}
-• Aroma: ${aroma}
-• Butiran: ${butiran}
-• Kemasan: ${kemasan}
-• Kondisi: Baru & siap kirim
-• Kualitas: 100% beras murni pilihan tanpa pemutih, pewangi, atau pengawet
-
-🧺 Kelebihan Produk
-${keunggulan.map(k => `✅ ${k.replace(/\./g, ",")}`).join('\n')}
-
----
-
-⚠️ Syarat Komplain
-Harap sertakan video unboxing lengkap saat membuka paket.
-Tanpa video, komplain tidak dapat diproses.
-
----
-
-🕒 Jam Operasional
-Senin - Sabtu : 07.00 - 20.00 WIB
-(Minggu & libur nasional tetap melayani pesanan online)
-
-🚚 Layanan Pengiriman
-Pengiriman cepat ke seluruh area sekitar.
-Bisa antar langsung ke rumah atau tempat usaha kamu.
-
----
-
-✨ Klik “Beli Sekarang” dan rasakan kualitas beras terbaik dari ${toko}!
-#${nama.replace(/\s+/g, '')} #${toko.replace(/\s+/g, '')} #${kualitas.replace(/\s+/g, '')} #BerasPulen #TokoBeras #BerasPremium #AndaPuasKamiSenang
-  `.trim();
-
-  document.getElementById("hasil").value = hasil;
-}
-
-function resetText() {
-	document.querySelectorAll(".generate form input").forEach((i) => { i.value = "" });
-	document.querySelectorAll(".generate form select option").forEach((i) => { i.selected = false});
-	document.getElementById("hasil").value = "";
-}
-
-function copyText() {
-  const isi = document.getElementById("hasil").value;
-  if (!isi.trim()) {
-    alert("Belum ada teks untuk disalin!");
-    return;
-  }
-  // Coba metode modern
-  navigator.clipboard.writeText(isi).then(() => {
-    alert("Deskripsi berhasil disalin!");
-  }).catch(() => {
-    // Fallback untuk browser lama
-    const textarea = document.createElement("textarea");
-    textarea.value = isi;
-    document.body.appendChild(textarea);
-    textarea.select();
-    try {
-      document.execCommand("copy");
-      alert("Deskripsi berhasil disalin!");
-    } catch (err) {
-      alert("Maaf, terjadi kesalahan saat menyalin teks.");
-    }
-    document.body.removeChild(textarea);
-  });
-}
-
-document.getElementById("openGenerate").addEventListener("click", openGenerate);
-document.getElementById("closeGenerate").addEventListener("click", closeGenerate);
-</script>
-
+    <script src="script.js"></script>
   </body>
 </html>
