@@ -285,6 +285,7 @@ button.edit-btn {
 	z-index: 999;
 	display: none;
 	font-size: 12px;
+	display: none;
 }
 .not-data.show {
 	display: block;
