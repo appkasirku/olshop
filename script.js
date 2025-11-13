@@ -1,5 +1,9 @@
 let db;
 let editIndex = null;
+let users = JSON.parse(localStorage.getItem("users")) || [];
+const userData = JSON.parse(sessionStorage.getItem("loggedInUser"));
+const userName = userData && userData.username;
+const userPass = userData && userData.password;
 
 // --- Inisialisasi IndexedDB ---
 const request = indexedDB.open("KalkulatorHargaDB", 1);
@@ -22,7 +26,7 @@ request.onsuccess = function (event) {
 request.onerror = function () {
   alert("Gagal membuka database IndexedDB!");
 };
-
+  
 // --- Fungsi CRUD IndexedDB ---
 function tambahData(event) {
   event.preventDefault();
@@ -106,6 +110,7 @@ function tambahData(event) {
     ongkir,
     fee,
     tanggalSekarang,
+    userName,
     ...hasil,
   };
 
@@ -122,6 +127,9 @@ function tambahData(event) {
   }
 
   tx.oncomplete = () => {
+		closeModal();
+    tampilkanData();
+    document.querySelectorAll("input").forEach((i) => (i.value = ""));
 		const baris = document.querySelector(`#tabelData tr[data-id='${item.id}']`);
 		if (!baris) return;
 		const kolom = baris.querySelectorAll("td");
@@ -140,8 +148,6 @@ function tambahData(event) {
 		kolom[13].textContent = fmt(item.saldoMasuk);
 		kolom[14].textContent = fmt(item.labaBersih);
 		kolom[15].textContent = item.tanggalSekarang;
-    closeModal();
-    document.querySelectorAll("input").forEach((i) => (i.value = ""));
   };
 }
 
@@ -313,10 +319,12 @@ function toNumber(str) {
   return parseFloat(str) || 0;
 }
 
-function openSearch() {
-	document.getElementById("searchBox").classList.add("show");
+function openSearch(e) {
+	e.stopPropagation();
+	const searchBox = document.getElementById("searchBox");
 	const inputSearch = document.getElementById("inputSearch");
 	const closeSearch = document.getElementById("closeSearch");
+	searchBox.classList.add("show");
 	inputSearch.focus();
 	inputSearch.addEventListener("input", () => {
 		if (inputSearch.value.length > 1) {
@@ -326,13 +334,21 @@ function openSearch() {
 		}
 		cariProdukIndexedDB(inputSearch.value);
 	});
+	document.addEventListener("click", (e) => {
+		if (!(e.target instanceof Node)) return;
+		if (searchBox && !searchBox.contains(e.target)) {
+			inputSearch.value = "";
+			searchBox.classList.remove("show");
+			//tampilkanData();
+		}
+	});
 }
 
 function dataResult(data) {
 	const tbody = document.querySelector("#tabelData tbody");
+	const notData = document.getElementById("notData");
 	tbody.innerHTML = "";
 	if (data.length > 0) {
-    	//tampilkanData(hasil);
 		data.forEach((d, i) => {
 			tbody.innerHTML += `
 	      <tr data-id="${d.id}">
@@ -361,12 +377,9 @@ function dataResult(data) {
 	      </tr>
 			`;
 		});
-	} else {
-		tbody.innerHTML = `
-			<tr>
-				<td colspan="18" style="padding:20px 20px 20px 40px;font-weight:normal;text-align:left">Produk tidak ditemukan!</td>
-			</tr>
-		`;
+		notData.classList.remove("show");
+	} else if (data.length === 0) {
+		notData.classList.add("show");
 	}
 }
 
@@ -567,3 +580,151 @@ function copyText() {
 
 document.getElementById("openGenerate").addEventListener("click", openGenerate);
 document.getElementById("closeGenerate").addEventListener("click", closeGenerate);
+
+// bagian pengguna
+// fungsi check login
+function checkLogin() {
+	const formUser = document.querySelector(".form-user");
+	const loggedIn = sessionStorage.getItem("loggedInUser");
+	if (loggedIn) {
+		formUser.classList.add("hidden");
+	} else {
+		formUser.classList.remove("hidden");
+	}
+}
+
+// check login
+window.onload = () => {
+	checkLogin();
+	setTimeout(() => document.querySelector(".loader").classList.add("hidden"), 500);
+}
+
+// fungsi buka tutup password
+function showHidePass() {
+	const pass = document.getElementById("password");
+	const posEnd = document.querySelector(".pos-end i");
+	if (pass.type === "password") {
+		pass.type = "text";
+		posEnd.classList.remove("fa-eye-slash");
+		posEnd.classList.add("fa-eye");
+	} else {
+		pass.type = "password";
+		posEnd.classList.remove("fa-eye");
+		posEnd.classList.add("fa-eye-slash");
+	}
+}
+
+// fungsi proses data user
+function processDataUser(username, password, targetRule) {
+	const formUser = document.querySelector('.form-user')
+	const input = document.querySelectorAll("#formLogin input");
+	const infoError = document.querySelectorAll("#formLogin .info-text");
+	infoError.forEach((ie) => ie.textContent = "");
+	if (targetRule === "akses login") {
+		const user = users.find(u => u.username === username);
+		const pass = users.find(p => p.password === password);
+		if (!user) {
+			input[0].focus();
+			infoError[0].textContent = "Username salah!";
+			return;
+		}
+		if (!pass) {
+			input[1].focus();
+			infoError[1].textContent = "Password salah!";
+			return;
+		}
+		formUser.classList.add("hidden");
+		sessionStorage.setItem("loggedInUser", JSON.stringify(user));
+	} else if (targetRule === "buat akun") {
+		const mhk = "Minimal mengandung 1 huruf kecil!";
+		const mhb = "Minimal mengandung 1 huruf besar!";
+		const msa = "Minimal mengandung 1 angka!";
+		if (users.find(u => u.username === username)) {
+			input[0].focus();
+			infoError[0].textContent = "Username sudah digunakan!";
+			return;
+		}
+		if (!password.match(/[a-z]/)) {
+			input[1].focus(), infoError[1].textContent = mhk;
+			return;
+		}
+		if (!password.match(/[A-Z]/)) {
+			input[1].focus(), infoError[1].textContent = mhb;
+			return;
+		}
+		if (!password.match(/[0-9]/)) {
+			input[1].focus(), infoError[1].textContent = msa;
+			return;
+		}
+		users.push({ username, password });
+		localStorage.setItem("users", JSON.stringify(users));
+		alert("Akun berhasi disimpan, silakan login.");
+	}
+}
+
+// fungsi validasi form user
+function validasiFormUser(e) {
+	e.preventDefault();
+	const formLogin = document.getElementById("formLogin");
+	const user = document.getElementById("username");
+	const pass = document.getElementById("password");
+	const btnLogin = document.getElementById("btnLogin");
+	const targetRule = btnLogin.getAttribute("target-rule");
+	 const infoError = formLogin.querySelectorAll(".info-text");
+	 infoError[0].textContent = "";
+	 infoError[1].textContent = "";
+	 if (user.value === "") {
+	 	user.focus();
+	 	infoError[0].textContent = "Masukkan username!";
+	 } else if (pass.value === "") {
+	 	pass.focus();
+	 	infoError[1].textContent = "Masukkan password!";
+	 } else {
+	 	processDataUser(user.value, pass.value, targetRule);
+	 }
+}
+
+// fungsi buat akun
+function buatAkun() {
+	const titlePage = document.getElementById("titlePage");
+	const btnLogin = document.getElementById("btnLogin");
+	const infoLogin = document.getElementById("infoLogin");
+	const buatAkun = document.getElementById("buatAkun");
+	const input = document.querySelectorAll("#formLogin input");
+	const posEnd = document.querySelector(".pos-end i");
+	
+	input.forEach((inp) => inp.value = "");
+	
+	document.querySelectorAll("#formLogin .info-text").forEach((ie) => ie.textContent = "");
+	
+	if (input[1].type === "text") {
+		input[1].type = "password";
+		posEnd.classList.remove("fa-eye");
+		posEnd.classList.add("fa-eye-slash");
+	}
+	
+	if (buatAkun.textContent.includes("Daftar disini")) {
+		titlePage.innerHTML = titlePage.innerHTML.replace("Login", "Buat Akun");
+		btnLogin.textContent = "Daftar Sekarang";
+		infoLogin.textContent = "Sudah";
+		buatAkun.textContent = "Login disini";
+		btnLogin.setAttribute("target-rule", "buat akun");
+	} else {
+		titlePage.innerHTML = titlePage.innerHTML.replace("Buat Akun", "Login");
+		btnLogin.textContent = "Login";
+		infoLogin.textContent = "Belum";
+		buatAkun.textContent = "Daftar disini";
+		btnLogin.setAttribute("target-rule", "akses login");
+	}
+}
+
+// fungsi logout user
+function logoutUser() {
+	if (!confirm("Yakin ingin logout?")) return false;
+	sessionStorage.removeItem("loggedInUser");
+	const formUser = document.querySelector(".form-user").classList.remove("hidden");
+}
+
+document.getElementById("btnLogin").addEventListener("click", validasiFormUser);
+document.getElementById("buatAkun").addEventListener("click", buatAkun);
+document.getElementById("logoutUser").addEventListener("click", logoutUser);

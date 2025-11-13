@@ -4,14 +4,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="theme-color" content="#ebc2b5" />
-    <title>Kalkulator Harga Online Shop</title>
+    <title>Kalkulator Harga Olshop</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   </head>
   <body>
+  	<div class="loader"></div>
     <div class="header">
       <div class="header-start">
-        <h1><i class="fa-solid fa-calculator"></i> Harga Online</h1>
+        <h1><i class="fa-solid fa-calculator"></i> Oline Shop</h1>
       </div>
   		<div class="header-end">
   			<button id="openSearch" title="Cari produk">
@@ -23,6 +24,9 @@
         <button id="openModal" title="Tambah Data">
           <i class="fa-solid fa-plus"></i>
         </button>
+        <button id="logoutUser" title="Logout">
+  				<i class="fa-solid fa-sign-out"></i>
+  			</button>
   		</div>
   		<div id="searchBox" class="search-box">
   			<input id="inputSearch" type="search" placeholder="Cari produk">
@@ -56,6 +60,12 @@
         </thead>
         <tbody></tbody>
       </table>
+    </div>
+    <div id="notData" class="not-data">
+    	<h3>Produk tidak tersedia!</h3>
+    	<div onclick="openModal()" title="Tambah Produk">Tambah Produk</div>
+    	<span>--- atau ---</span>
+    	<div onclick="tampilkanData()" title="Tampilkan Semua">Tampilkan Semua</div>
     </div>
     <div class="form-container">
       <form class="form-box">
@@ -293,8 +303,45 @@
 		</div>
     <div class="created">
       <div class="by">
-        <a href="https://shopee.com/beras20desember" title="Beras 20 Desember - Shopee" target="_blank">&copy;2025 . Design By Toko Beras 20 Desember</a>
+      	&copy;2025 ~ By Arnadi • 
+        <a href="https://shopee.com/beras20desember" title="Beras 20 Desember - Shopee" target="_blank">Beras 20 Desember</a>
       </div>
+    </div>
+    <div class="form-user">
+    	<div class="box">
+    		<h1 id="titlePage">Login <i class="fa-solid fa-calculator"></i> Oline Shop</h1>
+	    	<form id="formLogin">
+	    		<div class="row">
+	    			<label for="username">Username</label>
+	    			<div class="col">
+	    				<span class="pos-start">
+	    					<i class="fa-solid fa-at"></i>
+	    				</span>
+	    				<input id="username" type="text">
+	    			</div>
+	    			<p class="info info-text"></p>
+	    		</div>
+	    		<div class="row">
+	    			<label for="password">Password</label>
+	    			<div class="col">
+	    				<span class="pos-start">
+	    					<i class="fa-solid fa-lock"></i>
+	    				</span>
+	    			<input id="password" type="password">
+	    			<span onclick="showHidePass()" class="pos-end">
+	    					<i class="fa-solid fa-eye-slash"></i>
+	    				</span>
+	    			</div>
+	    			<p class="info info-text"></p>
+	    		</div>
+	    		<div class="row">
+	    			<button target-rule="akses login" id="btnLogin" type="submit">Login</button>
+	    		</div>
+	    	</form>
+	    	<div class="footer">
+	    		<p><span id="infoLogin">Belum</span> punya akun? <a id="buatAkun" href="#" title="Buat Akun">Daftar disini</a></p>
+	    	</div>
+    	</div>
     </div>
     <script src="script.js"></script>
   </body>
