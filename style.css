@@ -285,15 +285,14 @@ button.edit-btn {
 	z-index: 999;
 	display: none;
 	font-size: 12px;
-	display: none;
 }
 .not-data.show {
 	display: block;
 }
-.not-data span {
+.not-data.show span {
 	color: #999;
 }
-.not-data div {
+.not-data.show div {
 	color: #f1582a;
 	margin: 10px 0;
 }
