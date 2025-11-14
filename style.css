@@ -282,7 +282,7 @@ button.edit-btn {
 	transform: translateX(-50%);
 	width: 100%;
 	max-width: 320px;
-	z-index: 999;
+	z-index: 997;
 	display: none;
 	font-size: 12px;
 }
